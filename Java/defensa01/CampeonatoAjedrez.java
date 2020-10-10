@@ -1,68 +1,89 @@
-import javax.xml.bind.ParseConversionEvent;
 
 public class CampeonatoAjedrez {
 	private String fechaIni;
 	private String fechaFin;
-	private int nEnfre;
-	private String et[][] = new String[4][30];
-	
+	private int nroEnfrentamientos;
+	private String enfrentamientos[][] = new String[4][30];
+
 	// a)
 	public CampeonatoAjedrez() {
 		fechaIni = "17/09/2020";
 		fechaFin = "01/10/2020";
-		nEnfre = 2;
-		et[0][0]="Susana";
-		et[1][0]="Alan";
-		et[2][0]="17/09/20";
-		et[3][0]="empate";
-		
-		et[0][1]="Miguel";
-		et[1][1]="Nils";
-		et[2][1]="01/10/20";
-		et[3][1]="Miguel";
+		nroEnfrentamientos = 3;
+		enfrentamientos[0][0] = "Susana";
+		enfrentamientos[1][0] = "Miguel";
+		enfrentamientos[2][0] = "17/09/20";
+		enfrentamientos[3][0] = "Susana";
+
+		enfrentamientos[0][1] = "Juan";
+		enfrentamientos[1][1] = "Lina";
+		enfrentamientos[2][1] = "25/09/20";
+		enfrentamientos[3][1] = "Lina";
+
+		enfrentamientos[0][2] = "Miguel";
+		enfrentamientos[1][2] = "Nils";
+		enfrentamientos[2][2] = "01/10/20";
+		enfrentamientos[3][2] = "Miguel";
 	}
-	
+
 	public void mostrar() {
-		System.out.println("Fecha Ini: "+fechaIni);
-		System.out.println("Fecha Fin: "+fechaFin);
-		System.out.println("N° Enfrentamientos: "+nEnfre);
-		for (int i = 0; i < nEnfre; i++) {
-			System.out.print(et[0][i]+"\t");
-			System.out.print(et[1][i]+"\t");
-			System.out.print(et[2][i]+"\t");
-			System.out.print(et[3][i]+"\t");
+		System.out.println("** ENFRENTAMIENTOS DEL CAMPEONATO:  **");
+		System.out.println("Fecha Ini: " + fechaIni);
+		System.out.println("Fecha Fin: " + fechaFin);
+		System.out.println("Nro Enfrentamientos: " + nroEnfrentamientos);
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < nroEnfrentamientos; j++)
+				System.out.print(enfrentamientos[i][j] + "\t\t");
 			System.out.println();
 		}
+		System.out.println();
 	}
+
 	// b)
 	public void mostrarEnfrentamiento(String mes) {
-		for (int i = 0; i < nEnfre; i++) {
-			if (et[2][i].substring(3,5).equals(mes)) {
-				System.out.println(et[0][i]);
-				System.out.println(et[1][i]);
-				System.out.println(et[2][i]);
-				System.out.println(et[3][i]);
+		System.out.println("** Enfrentamientos del mes " + mes + " **");
+		for (int i = 0; i < nroEnfrentamientos; i++) {
+			if (enfrentamientos[2][i].substring(3, 5).equals(mes)) {
+				System.out.println(enfrentamientos[0][i]);
+				System.out.println(enfrentamientos[1][i]);
+				System.out.println(enfrentamientos[2][i]);
+				System.out.println(enfrentamientos[3][i]);
 			}
 		}
+		System.out.println();
 	}
+
 	// c)
-	public void eliminarGanadores() {
-		for (int i = 0; i < nEnfre; i++) {
-			if (!et[3][i].contentEquals("empate")) {
-				/*
-				 * Eliminen la columna
-				 * */
-			}
+	public void eliminarAjedrecista(Ajedrecista x) {
+		String nom = x.getNombre();
+		System.out.println("nRO ENFRE" + this.nroEnfrentamientos);
+		for (int i = 0; i < nroEnfrentamientos; i++) {
+			String ganador = enfrentamientos[3][i];
+			String jugadorUno = enfrentamientos[0][i];
+			String jugadorDos = enfrentamientos[1][i];
+			// Primero preguntamos si x jugo en esa partida
+			if (nom.equals(jugadorUno) || nom.equals(jugadorDos))
+				// Preguntamos si es que NO gano x
+				if (!ganador.equals(nom))
+					// Preguntamos si tampoco fue empate
+					if (!ganador.equals("empate")) {
+						// Entonces perdiÃ² y eliiminamos esa partida
+						eliminaPartida(i);
+						i--; // Como eliminamos uno, necesitamos equilibrar para el ciclo for
+					}
 		}
 	}
-	// d)
-	public void enfrentar(Ajedresista uno, Ajedresista dos, String fecha) {
-		for (int i = 0; i < nEnfre; i++) {
-			if (!et[2][i].contentEquals(fecha)) {
-				/*
-				 * Agreguen si cumple todas las condiciones
-				 * */
-			}
+
+	private void eliminaPartida(int i) {
+		System.out.println("Eliminado partida");
+		for (int j = i; j < nroEnfrentamientos - 1; j++) {
+			enfrentamientos[0][j] = enfrentamientos[0][j + 1];
+			enfrentamientos[1][j] = enfrentamientos[1][j + 1];
+			enfrentamientos[2][j] = enfrentamientos[2][j + 1];
+			enfrentamientos[3][j] = enfrentamientos[3][j + 1];
 		}
+		nroEnfrentamientos--;
+
 	}
+
 }
