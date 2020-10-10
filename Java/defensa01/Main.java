@@ -1,18 +1,20 @@
 
 public class Main {
 	public static void main(String[] args) {
-		Ajedresista primero= new Ajedresista("Uno",15);
-		Ajedresista segundo= new Ajedresista("Dos",19,"F");
-		Ajedresista tercero= new Ajedresista("Tres",22,"M","Perú");
-		/*
-		primero.mostrar();
-		segundo.mostrar();
-		tercero.mostrar();
-		*/
-		System.out.println("--------------------------------");
-		
-		CampeonatoAjedrez partidas = new CampeonatoAjedrez();
-		// partidas.mostrar();
-		partidas.mostrarEnfrentamiento("09");
+		// a)
+			CampeonatoAjedrez partidas = new CampeonatoAjedrez();
+			partidas.mostrar();
+			Ajedrecista miguel= new Ajedrecista("Miguel",15);
+			Ajedrecista mario= new Ajedrecista("Mario",19,"F");
+			Ajedrecista luis= new Ajedrecista("Luis",22,"M","PerÃº");
+			miguel.mostrar();
+			mario.mostrar();
+			luis.mostrar();
+		// b)
+			partidas.mostrarEnfrentamiento("09");
+		// c)
+			partidas.eliminarAjedrecista(miguel);
+			System.out.println("Luego...");
+			partidas.mostrar();
 	}
 }
